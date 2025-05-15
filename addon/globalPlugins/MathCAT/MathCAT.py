@@ -23,7 +23,7 @@ import addonHandler
 import winKernel
 import gui
 
-from . import libmathcat_py as libmathcat      # type: ignore
+from . import libmathcat_py as libmathcat
 from typing import List, Dict
 from keyboardHandler import KeyboardInputGesture  # navigation key strokes
 from logHandler import log  # logging
@@ -345,7 +345,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
         # Translators: Name of the section in "Input gestures" dialog.
         category=_("Clipboard"),
         gesture="kb:control+c",
-    )
+    ) # type: ignore
     def script_rawdataToClip(self, gesture: KeyboardInputGesture):
         try:
             copy_as = "mathml"      # value used even if "CopyAs" pref is invalid

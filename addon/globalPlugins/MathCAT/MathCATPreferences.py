@@ -558,7 +558,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
             with open(
                 UserInterface.path_to_default_preferences(), encoding="utf-8"
             ) as f:
-                user_preferences = yaml.load(f, Loader=yaml.FullLoader)  # type: ignore
+                user_preferences = yaml.load(f, Loader=yaml.FullLoader)
 
     @staticmethod
     def load_user_preferences():
@@ -567,7 +567,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
         if os.path.exists(UserInterface.path_to_user_preferences()):
             with open(UserInterface.path_to_user_preferences(), encoding="utf-8") as f:
                 # merge with the default preferences, overwriting with the user's values
-                user_preferences.update(yaml.load(f, Loader=yaml.FullLoader))  # type: ignore
+                user_preferences.update(yaml.load(f, Loader=yaml.FullLoader))
 
     @staticmethod
     def validate(key1: str, key2: str, valid_values: List[Union[str, bool]], default_value: Union[str, bool]):
@@ -652,7 +652,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
     @staticmethod
     def write_user_preferences():
         # Language is special because it is set elsewhere by SetPreference which overrides the user_prefs -- so set it here
-        from . import libmathcat_py as libmathcat      # type: ignore
+        from . import libmathcat_py as libmathcat
         try:
             libmathcat.SetPreference("Language", user_preferences["Speech"]["Language"])
         except Exception as e:
