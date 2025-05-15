@@ -8,7 +8,7 @@
 
 import os
 import sys
-import libmathcat_py as libmathcat      # type: ignore
+import libmathcat_py as libmathcat
 
 # import shutil
 # if os.path.exists("libmathcat_py.pyd"):
