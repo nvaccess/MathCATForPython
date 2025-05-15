@@ -66,6 +66,7 @@ exclude = [
 	"./source/comInterfaces/*",
 	# Code from add-ons
 	"./source/userConfig/addons/*",
+	"./addon/globalPlugins/MathCAT/yaml/*",
 ]
 
 [tool.ruff.format]
