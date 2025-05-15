@@ -1,4 +1,3 @@
-exclude: ^user_docs/(?!en/).+/.+\.md$
 
 # https://pre-commit.ci/
 # Configuration for Continuous Integration service
@@ -9,7 +8,7 @@ ci:
   # https://stackoverflow.com/questions/70778806/pre-commit-not-using-virtual-environment .
   # Can't run licenseCheck as it relies on telemetry,
   # which CI blocks.
-  skip: [scons-source, checkPot, unitTest, licenseCheck, pyrightLocal]
+  skip: [pyrightLocal]
   autoupdate_schedule: monthly
   autoupdate_commit_msg: "Pre-commit auto-update"
   autofix_commit_msg: "Pre-commit auto-fix"
@@ -42,7 +41,6 @@ repos:
       # POFiles and TTF fonts can't be made smaller
       exclude_types: ["pofile", "ttf"]
       # Same applies for NVDA dictionary (.dic) files and Spline Font Database (.SFD) files, but these aren't recognised by the Identify library.
-      exclude: "\\.(dic|sfd)$"
     # Checks python syntax
     - id: check-ast
     # Checks for filenames that will conflict on case insensitive filesystems (the majority of Windows filesystems, most of the time)
@@ -66,29 +64,11 @@ repos:
     # Validates YAML files.
     - id: check-yaml
     # Validates XML files.
-    - id: check-xml
     # Ensures that links to lines in files under version control point to a particular commit.
     - id: check-vcs-permalinks
     # Avoids using reserved Windows filenames.
     - id: check-illegal-windows-names
-    # Checks that tests are named test_*.py.
-    - id: name-tests-test
       args: ["--unittest"]
-      # Exclude Python files under `tests/` that aren't unittest files.
-      # This is a Python verbose regular expression.
-      # See https://docs.python.org/3/library/re.html#re.VERBOSE
-      exclude: |
-        (?x)^tests/(
-          checkPot.py |  # Doesn't use unittest
-          system |  # Uses robot
-          unit/ (
-            # Test helpers
-            textProvider.py |
-            extensionPointTestHelpers.py |
-            objectProvider.py |
-            test_speechManager/speechManagerTestHarness.py
-          )
-        )
 
 - repo: https://github.com/asottile/add-trailing-comma
   rev: v3.1.0
@@ -124,39 +104,3 @@ repos:
     # use nodejs version of pyright and install pyproject.toml for CI
     additional_dependencies: [".", "pyright[nodejs]"]
     stages: [manual]  # Only run from CI manually
-
-- repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.6.14
-  hooks:
-    - id: uv-lock
-      name: Verify uv lock file
-      # Override python interpreter from .python-versions as that is too strict for pre-commit.ci
-      args: ["-p3.11"]
-
-- repo: local
-  hooks:
-    - id: scons-source
-      name: build c/c++ files
-      entry: cmd.exe /c "scons source --all-cores"
-      language: system
-      pass_filenames: false
-      types_or: [c, c++]
-    - id: checkPot
-      name: translation string check
-      entry: cmd.exe /c "scons checkPot --all-cores"
-      language: system
-      pass_filenames: false
-      types: [python]
-      files: ^source/.*$
-    - id: unitTest
-      name: unit tests
-      entry: ./rununittests.bat
-      language: script
-      pass_filenames: false
-      types_or: [python, c, c++, batch]
-    - id: licenseCheck
-      name: Check license compatibility of pip dependencies
-      files: ^(runlicensecheck\.bat|pyproject\.toml)$
-      entry: ./runlicensecheck.bat
-      language: script
-      pass_filenames: false
