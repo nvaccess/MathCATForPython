@@ -242,20 +242,13 @@ members = [
 
 [dependency-groups]
 dev = [
-	"nvda-misc-deps",
-	# NVDA's build system is SCons
 	"SCons==4.8.1",
-	# Packaging NVDA
-	"py2exe==0.13.0.2",
 	"setuptools~=72.0",
 ]
 lint = [
 	"ruff==0.8.1",
 	"pre-commit==4.0.1",
 	"pyright==1.1.396",
-]
-license-check = [
-	"licensecheck==2024.3",
 ]
 
 [tool.setuptools.dynamic]
