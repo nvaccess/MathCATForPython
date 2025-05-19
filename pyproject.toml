@@ -7,7 +7,7 @@ name = "MathCATForPython"
 dynamic = ["version"]
 description = "Math Capable Assistive Technology (MathCAT) Python bindings and addon for NVDA"
 maintainers = [
-	{name = "NV Access", email = "info@nvaccess.org"},
+	{name = "Neil Soiffer", email = "soiffer@alum.nit.edu"},
 ]
 requires-python = ">=3.11,<3.12"
 classifiers = [
