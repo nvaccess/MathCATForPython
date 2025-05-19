@@ -25,7 +25,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/NSoiffer/MathCATForPython"
+Repository = "http://github.com/NSoiffer/MathCATForPython"
 
 [tool.ruff]
 line-length = 110
@@ -84,7 +84,6 @@ include = [
 
 exclude = [
 	"sconstruct",
-	"*sconscript",
 	".git",
 	"__pycache__",
 	".venv",
