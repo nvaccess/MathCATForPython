@@ -44,7 +44,6 @@ builtins = [
 include = [
 	"*.py",
 	"sconstruct",
-	"*sconscript",
 ]
 
 exclude = [
@@ -72,7 +71,6 @@ logger-objects = ["logHandler.log"]
 # sconscripts contains many inbuilt functions not recognised by the lint,
 # so ignore F821.
 "sconstruct" = ["F821"]
-"*sconscript" = ["F821"]
 
 [tool.licensecheck]
 only_licenses = ["BSD", "MIT", "Python", "LGPLV3+", "Apache"]
