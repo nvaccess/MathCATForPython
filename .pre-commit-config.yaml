@@ -8,6 +8,7 @@ ci:
   # https://stackoverflow.com/questions/70778806/pre-commit-not-using-virtual-environment .
   # Can't run licenseCheck as it relies on telemetry,
   # which CI blocks.
+  skip: [pyrightLocal]
   autoupdate_schedule: monthly
   autoupdate_commit_msg: "Pre-commit auto-update"
   autofix_commit_msg: "Pre-commit auto-fix"
@@ -65,7 +66,6 @@ repos:
     - id: check-vcs-permalinks
     # Avoids using reserved Windows filenames.
     - id: check-illegal-windows-names
-      args: ["--unittest"]
 
 - repo: https://github.com/asottile/add-trailing-comma
   rev: v3.1.0
