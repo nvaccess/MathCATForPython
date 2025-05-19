@@ -43,7 +43,6 @@ builtins = [
 
 include = [
 	"*.py",
-	"*.pyw",
 	"sconstruct",
 	"*sconscript",
 ]
@@ -95,7 +94,6 @@ typeCheckingMode = "strict"
 
 include = [
 	"**/*.py",
-	"**/*.pyw",
 ]
 
 exclude = [
