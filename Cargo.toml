@@ -41,6 +41,3 @@ mathcat = {version = "=0.6.9", features = ["include-zip"]}     # for building, w
 [profile.release]
 lto = true
 # opt-level = "z"  # Optimize for size.
-
-[patch.crates-io]
-zip = "3.0"
