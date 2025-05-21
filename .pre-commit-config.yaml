@@ -94,4 +94,3 @@ repos:
     # use nodejs version of pyright and install pyproject.toml for CI
     additional_dependencies: [".", "pyright[nodejs]"]
     stages: [manual]  # Only run from CI manually
-    
