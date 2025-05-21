@@ -25,7 +25,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/nvaccess/MathCATForPython.git"
+Repository = "http://github.com/NSoiffer/MathCATForPython"
 
 [tool.ruff]
 line-length = 110
@@ -43,9 +43,7 @@ builtins = [
 
 include = [
 	"*.py",
-	"*.pyw",
 	"sconstruct",
-	"*sconscript",
 ]
 
 exclude = [
@@ -73,22 +71,6 @@ logger-objects = ["logHandler.log"]
 # sconscripts contains many inbuilt functions not recognised by the lint,
 # so ignore F821.
 "sconstruct" = ["F821"]
-"*sconscript" = ["F821"]
-
-[tool.ruff.lint.flake8-tidy-imports.banned-api]
-"winsound.PlaySound".msg= "PlaySound uses winmm, which is deprecated in favor of the Windows core audio APIs."
-
-[tool.licensecheck]
-only_licenses = ["BSD", "MIT", "Python", "LGPLV3+", "Apache"]
-ignore_packages = [
-	# Compatible licenses:
-	"certifi",  # Mozilla Public License 2.0
-	"markdown-link-attr-modifier",  # GPLV3 license, but not in PyPI correctly
-	"pycaw",  # MIT license, but not in PyPI
-	"urllib3",  # MIT license, but not in PyPI
-	"wxPython",  # wxWindows Library License
-]
-
 
 [tool.pyright]
 venvPath = ".venv"
@@ -98,12 +80,10 @@ typeCheckingMode = "strict"
 
 include = [
 	"**/*.py",
-	"**/*.pyw",
 ]
 
 exclude = [
 	"sconstruct",
-	"*sconscript",
 	".git",
 	"__pycache__",
 	".venv",
@@ -163,99 +143,67 @@ reportUnusedCoroutine = true
 reportUnusedExcept = true
 
 # Should switch to true when possible
-reportDeprecated = false  # 1834 errors
+reportDeprecated = false
 
 # Can be enabled by generating type stubs for modules via pyright CLI
 reportMissingTypeStubs = false
 
-# Bad rules
-# These are roughly sorted by compliance to make it easier for devs to focus on enabling them.
-# Errors were last checked Feb 2025.
-# 1-50 errors
-reportUnsupportedDunderAll = false  # 2 errors
-reportAbstractUsage = false  # 3 errors
-reportUntypedBaseClass = false  # 4 errors
-reportOptionalIterable = false  # 5 errors
-reportCallInDefaultInitializer = false  # 6 errors
-reportInvalidTypeArguments = false  # 7 errors
-reportUntypedNamedTuple = false  # 11 errors
-reportRedeclaration = false  # 12 errors
-reportOptionalCall = false  # 16 errors
-reportConstantRedefinition = false  # 18 errors
-reportWildcardImportFromLibrary = false  # 26 errors
-reportIncompatibleVariableOverride = false  # 28 errors
-reportInvalidTypeForm = false  # 38 errors
-
-
-# 50-100 errors
-reportGeneralTypeIssues = false  # 53 errors
-reportOptionalOperand = false  # 59 errors
-reportUnnecessaryComparison = false  # 67 errors
-reportFunctionMemberAccess = false  # 80 errors
-reportUnnecessaryIsInstance = false  # 88 errors
-reportUnusedFunction = false  # 97 errors
-reportImportCycles = false  # 99 errors
-reportUnusedImport = false  # 113 errors
-reportUnusedVariable = false  # 147 errors
-
-# 100-1000 errors
-reportOperatorIssue = false  # 102 errors
-reportAssignmentType = false  # 103 errors
-reportReturnType = false  # 104 errors
-reportPossiblyUnboundVariable = false  # 126 errors
-reportMissingSuperCall = false  # 159 errors
-reportUninitializedInstanceVariable = false  # 179 errors
-reportUnknownLambdaType = false  # 196 errors
-reportMissingTypeArgument = false  # 204 errors
-reportImplicitStringConcatenation = false  # 300+ errors
-reportIncompatibleMethodOverride = false  # 300+ errors
-reportPrivateUsage = false  # 900+ errors
-
-# 1000+ errors
-reportUnusedCallResult = false  # 1000+ errors
-reportOptionalSubscript = false  # 1000+ errors, mostly failing to recognize config setter/getter
-reportCallIssue = false  # 1000+ errors, mostly failing to recognize config setter/getter
-reportOptionalMemberAccess = false  # 1683 errors
-reportImplicitOverride = false  # 2000+ errors
-reportIndexIssue = false  # 2000+ errors, mostly failing to recognize config setter/getter
-reportAttributeAccessIssue = false  # 2000+ errors
-reportArgumentType = false  # 2000+ errors
-reportUnknownParameterType = false  # 4000+ errors
-reportMissingParameterType = false  # 4000+ errors
-reportUnknownVariableType = false  # 6000+ errors
-reportUnknownArgumentType = false  # 6000+ errors
-reportUnknownMemberType = false # 20000+ errors
-
-[tool.uv]
-default-groups = "all"
-python-preference = "only-system"
-environments = ["sys_platform == 'win32'"]
-
-[tool.uv.sources]
-nvda-misc-deps = { workspace = true }
-configobj = { git = "https://github.com/DiffSK/configobj", rev = "8be54629ee7c26acb5c865b74c76284e80f3aa31" }
-
-[tool.uv.workspace]
-members = [
-    "miscDeps",
-]
+reportUnsupportedDunderAll = false
+reportAbstractUsage = false
+reportUntypedBaseClass = false
+reportOptionalIterable = false
+reportCallInDefaultInitializer = false
+reportInvalidTypeArguments = false
+reportUntypedNamedTuple = false
+reportRedeclaration = false
+reportOptionalCall = false
+reportConstantRedefinition = false
+reportWildcardImportFromLibrary = false
+reportIncompatibleVariableOverride = false
+reportInvalidTypeForm = false
+reportGeneralTypeIssues = false
+reportOptionalOperand = false
+reportUnnecessaryComparison = false
+reportFunctionMemberAccess = false
+reportUnnecessaryIsInstance = false
+reportUnusedFunction = false
+reportImportCycles = false
+reportUnusedImport = false
+reportUnusedVariable = false
+reportOperatorIssue = false
+reportAssignmentType = false
+reportReturnType = false
+reportPossiblyUnboundVariable = false
+reportMissingSuperCall = false
+reportUninitializedInstanceVariable = false
+reportUnknownLambdaType = false
+reportMissingTypeArgument = false
+reportImplicitStringConcatenation = false
+reportIncompatibleMethodOverride = false
+reportPrivateUsage = false
+reportUnusedCallResult = false
+reportOptionalSubscript = false
+reportCallIssue = false
+reportOptionalMemberAccess = false
+reportImplicitOverride = false
+reportIndexIssue = false
+reportAttributeAccessIssue = false
+reportArgumentType = false
+reportUnknownParameterType = false
+reportMissingParameterType = false
+reportUnknownVariableType = false
+reportUnknownArgumentType = false
+reportUnknownMemberType = false
 
 [dependency-groups]
 dev = [
-	"nvda-misc-deps",
-	# NVDA's build system is SCons
 	"SCons==4.8.1",
-	# Packaging NVDA
-	"py2exe==0.13.0.2",
 	"setuptools~=72.0",
 ]
 lint = [
 	"ruff==0.8.1",
 	"pre-commit==4.0.1",
 	"pyright==1.1.396",
-]
-license-check = [
-	"licensecheck==2024.3",
 ]
 
 [tool.setuptools.dynamic]
