@@ -73,7 +73,7 @@ class MathCATPreferencesDialog(wx.Dialog):
 
 		bSizerCategories.Add((0, 0), 1, wx.EXPAND, 5)
 
-		self.m_bitmapLogo = wx.StaticBitmap(
+		self._bitmapLogo = wx.StaticBitmap(
 			self._panelCategories,
 			wx.ID_ANY,
 			wx.NullBitmap,
@@ -81,7 +81,7 @@ class MathCATPreferencesDialog(wx.Dialog):
 			wx.Size(126, 85),
 			0,
 		)
-		bSizerCategories.Add(self.m_bitmapLogo, 0, wx.ALL, 5)
+		bSizerCategories.Add(self._bitmapLogo, 0, wx.ALL, 5)
 
 		self._panelCategories.SetSizer(bSizerCategories)
 		self._panelCategories.Layout()

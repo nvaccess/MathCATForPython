@@ -24,7 +24,7 @@ PAUSE_FACTOR_SCALE = 9.5
 PAUSE_FACTOR_LOG_BASE = 1.4
 
 # initialize the user preferences tuples
-user_preferences: Dict[str, Dict[str, Union[int, str, bool]]] = {}
+userPreferences: Dict[str, Dict[str, Union[int, str, bool]]] = {}
 # Speech_Language is derived from the folder structures
 Speech_DecimalSeparator = ("Auto", ".", ",", "Custom")
 Speech_Impairment = ("LearningDisability", "Blindness", "LowVision")
@@ -49,28 +49,28 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		# load the logo into the dialog
 		fullPathToLogo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
 		if os.path.exists(fullPathToLogo):
-			self.m_bitmapLogo.SetBitmap(wx.Bitmap(fullPathToLogo))
+			self._bitmapLogo.SetBitmap(wx.Bitmap(fullPathToLogo))
 
 		# load in the system values followed by the user prefs (if any)
 		UserInterface.loadDefaultPreferences()
 		UserInterface.loadUserPreferences()
 
 		# hack for "CopyAs" because its location in the prefs is not yet fixed
-		if "CopyAs" not in user_preferences["Navigation"]:
-			user_preferences["Navigation"]["CopyAs"] = (
-				user_preferences["Other"]["CopyAs"] if "CopyAs" in user_preferences["Other"] else "MathML"
+		if "CopyAs" not in userPreferences["Navigation"]:
+			userPreferences["Navigation"]["CopyAs"] = (
+				userPreferences["Other"]["CopyAs"] if "CopyAs" in userPreferences["Other"] else "MathML"
 			)
 		UserInterface.validateUserPreferences()
 
-		if "NVDAAddOn" in user_preferences:
+		if "NVDAAddOn" in userPreferences:
 			# set the categories selection to what we used on last run
-			self._listBoxPreferencesTopic.SetSelection(user_preferences["NVDAAddOn"]["LastCategory"])
+			self._listBoxPreferencesTopic.SetSelection(userPreferences["NVDAAddOn"]["LastCategory"])
 			# show the appropriate dialogue page
 			self._simplebookPanelsCategories.SetSelection(self._listBoxPreferencesTopic.GetSelection())
 		else:
 			# set the categories selection to the first item
 			self._listBoxPreferencesTopic.SetSelection(0)
-			user_preferences["NVDAAddOn"] = {"LastCategory": "0"}
+			userPreferences["NVDAAddOn"] = {"LastCategory": "0"}
 		# populate the languages and braille codes
 		UserInterface.GetLanguages(self)
 		UserInterface.GetBrailleCodes(self)
@@ -418,10 +418,10 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		# set the UI elements to the ones read from the preference file(s)
 		try:
 			self._choiceImpairment.SetSelection(
-				Speech_Impairment.index(user_preferences["Speech"]["Impairment"]),
+				Speech_Impairment.index(userPreferences["Speech"]["Impairment"]),
 			)
 			try:
-				langPref = user_preferences["Speech"]["Language"]
+				langPref = userPreferences["Speech"]["Language"]
 				self._choiceLanguage.SetSelection(0)
 				i = 1  # no need to test i == 0
 				while i < self._choiceLanguage.GetCount():
@@ -431,14 +431,14 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 					i += 1
 			except Exception as e:
 				log.exception(
-					f"MathCAT: An exception occurred in setUIValues ('{user_preferences['Speech']['Language']}'): {e}",
+					f"MathCAT: An exception occurred in setUIValues ('{userPreferences['Speech']['Language']}'): {e}",
 				)
 				# the language in the settings file is not in the folder structure, something went wrong,
 				# set to the first in the list
 				self._choiceLanguage.SetSelection(0)
 			try:
 				# now get the available SpeechStyles from the folder structure and set to the preference setting is possible
-				self.GetSpeechStyles(str(user_preferences["Speech"]["SpeechStyle"]))
+				self.GetSpeechStyles(str(userPreferences["Speech"]["SpeechStyle"]))
 			except Exception as e:
 				log.exception(f"MathCAT: An exception occurred in set_ui_values (getting SpeechStyle): {e}")
 				self._choiceSpeechStyle.Append(
@@ -446,50 +446,50 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 				)
 			# set the rest of the UI elements
 			self._choiceDecimalSeparator.SetSelection(
-				Speech_DecimalSeparator.index(user_preferences["Other"]["DecimalSeparator"]),
+				Speech_DecimalSeparator.index(userPreferences["Other"]["DecimalSeparator"]),
 			)
 			self._choiceSpeechAmount.SetSelection(
-				Speech_Verbosity.index(user_preferences["Speech"]["Verbosity"]),
+				Speech_Verbosity.index(userPreferences["Speech"]["Verbosity"]),
 			)
-			self._sliderRelativeSpeed.SetValue(user_preferences["Speech"]["MathRate"])
+			self._sliderRelativeSpeed.SetValue(userPreferences["Speech"]["MathRate"])
 			pause_factor = (
 				0
-				if int(user_preferences["Speech"]["PauseFactor"]) <= 1
+				if int(userPreferences["Speech"]["PauseFactor"]) <= 1
 				else round(
 					math.log(
-						int(user_preferences["Speech"]["PauseFactor"]) / PAUSE_FACTOR_SCALE,
+						int(userPreferences["Speech"]["PauseFactor"]) / PAUSE_FACTOR_SCALE,
 						PAUSE_FACTOR_LOG_BASE,
 					),
 				)
 			)
 			self._sliderPauseFactor.SetValue(pause_factor)
-			self._checkBoxSpeechSound.SetValue(user_preferences["Speech"]["SpeechSound"] == "Beep")
+			self._checkBoxSpeechSound.SetValue(userPreferences["Speech"]["SpeechSound"] == "Beep")
 			self._choiceSpeechForChemical.SetSelection(
-				Speech_Chemistry.index(user_preferences["Speech"]["Chemistry"]),
+				Speech_Chemistry.index(userPreferences["Speech"]["Chemistry"]),
 			)
 
 			self._choiceNavigationMode.SetSelection(
-				Navigation_NavMode.index(user_preferences["Navigation"]["NavMode"]),
+				Navigation_NavMode.index(userPreferences["Navigation"]["NavMode"]),
 			)
-			self._checkBoxResetNavigationMode.SetValue(user_preferences["Navigation"]["ResetNavMode"])
+			self._checkBoxResetNavigationMode.SetValue(userPreferences["Navigation"]["ResetNavMode"])
 			self._choiceSpeechAmountNavigation.SetSelection(
-				Navigation_NavVerbosity.index(user_preferences["Navigation"]["NavVerbosity"]),
+				Navigation_NavVerbosity.index(userPreferences["Navigation"]["NavVerbosity"]),
 			)
-			if user_preferences["Navigation"]["Overview"]:
+			if userPreferences["Navigation"]["Overview"]:
 				self._choiceNavigationSpeech.SetSelection(1)
 			else:
 				self._choiceNavigationSpeech.SetSelection(0)
-			self._checkBoxResetNavigationSpeech.SetValue(user_preferences["Navigation"]["ResetOverview"])
-			self._checkBoxAutomaticZoom.SetValue(user_preferences["Navigation"]["AutoZoomOut"])
+			self._checkBoxResetNavigationSpeech.SetValue(userPreferences["Navigation"]["ResetOverview"])
+			self._checkBoxAutomaticZoom.SetValue(userPreferences["Navigation"]["AutoZoomOut"])
 			self._choiceCopyAs.SetSelection(
-				Navigation_CopyAs.index(user_preferences["Navigation"]["CopyAs"]),
+				Navigation_CopyAs.index(userPreferences["Navigation"]["CopyAs"]),
 			)
 
 			self._choiceBrailleHighlights.SetSelection(
-				Braille_BrailleNavHighlight.index(user_preferences["Braille"]["BrailleNavHighlight"]),
+				Braille_BrailleNavHighlight.index(userPreferences["Braille"]["BrailleNavHighlight"]),
 			)
 			try:
-				braillePref = user_preferences["Braille"]["BrailleCode"]
+				braillePref = userPreferences["Braille"]["BrailleCode"]
 				i = 0
 				while braillePref != self._choiceBrailleMathCode.GetString(i):
 					i = i + 1
@@ -508,47 +508,47 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 			print("Key not found", err)
 
 	def getUIValues(self):
-		global user_preferences
+		global userPreferences
 		# read the values from the UI and update the user preferences dictionary
-		user_preferences["Speech"]["Impairment"] = Speech_Impairment[self._choiceImpairment.GetSelection()]
-		user_preferences["Speech"]["Language"] = self.GetLanguageCode()
-		user_preferences["Other"]["DecimalSeparator"] = Speech_DecimalSeparator[
+		userPreferences["Speech"]["Impairment"] = Speech_Impairment[self._choiceImpairment.GetSelection()]
+		userPreferences["Speech"]["Language"] = self.GetLanguageCode()
+		userPreferences["Other"]["DecimalSeparator"] = Speech_DecimalSeparator[
 			self._choiceDecimalSeparator.GetSelection()
 		]
-		user_preferences["Speech"]["SpeechStyle"] = self._choiceSpeechStyle.GetStringSelection()
-		user_preferences["Speech"]["Verbosity"] = Speech_Verbosity[self._choiceSpeechAmount.GetSelection()]
-		user_preferences["Speech"]["MathRate"] = self._sliderRelativeSpeed.GetValue()
+		userPreferences["Speech"]["SpeechStyle"] = self._choiceSpeechStyle.GetStringSelection()
+		userPreferences["Speech"]["Verbosity"] = Speech_Verbosity[self._choiceSpeechAmount.GetSelection()]
+		userPreferences["Speech"]["MathRate"] = self._sliderRelativeSpeed.GetValue()
 		pfSlider = self._sliderPauseFactor.GetValue()
 		pauseFactor = (
 			0 if pfSlider == 0 else round(PAUSE_FACTOR_SCALE * math.pow(PAUSE_FACTOR_LOG_BASE, pfSlider))
 		)  # avoid log(0)
-		user_preferences["Speech"]["PauseFactor"] = pauseFactor
+		userPreferences["Speech"]["PauseFactor"] = pauseFactor
 		if self._checkBoxSpeechSound.GetValue():
-			user_preferences["Speech"]["SpeechSound"] = "Beep"
+			userPreferences["Speech"]["SpeechSound"] = "Beep"
 		else:
-			user_preferences["Speech"]["SpeechSound"] = "None"
-		user_preferences["Speech"]["Chemistry"] = Speech_Chemistry[
+			userPreferences["Speech"]["SpeechSound"] = "None"
+		userPreferences["Speech"]["Chemistry"] = Speech_Chemistry[
 			self._choiceSpeechForChemical.GetSelection()
 		]
-		user_preferences["Navigation"]["NavMode"] = Navigation_NavMode[
+		userPreferences["Navigation"]["NavMode"] = Navigation_NavMode[
 			self._choiceNavigationMode.GetSelection()
 		]
-		user_preferences["Navigation"]["ResetNavMode"] = self._checkBoxResetNavigationMode.GetValue()
-		user_preferences["Navigation"]["NavVerbosity"] = Navigation_NavVerbosity[
+		userPreferences["Navigation"]["ResetNavMode"] = self._checkBoxResetNavigationMode.GetValue()
+		userPreferences["Navigation"]["NavVerbosity"] = Navigation_NavVerbosity[
 			self._choiceSpeechAmountNavigation.GetSelection()
 		]
-		user_preferences["Navigation"]["Overview"] = self._choiceNavigationSpeech.GetSelection() != 0
-		user_preferences["Navigation"]["ResetOverview"] = self._checkBoxResetNavigationSpeech.GetValue()
-		user_preferences["Navigation"]["AutoZoomOut"] = self._checkBoxAutomaticZoom.GetValue()
-		user_preferences["Navigation"]["CopyAs"] = Navigation_CopyAs[self._choiceCopyAs.GetSelection()]
+		userPreferences["Navigation"]["Overview"] = self._choiceNavigationSpeech.GetSelection() != 0
+		userPreferences["Navigation"]["ResetOverview"] = self._checkBoxResetNavigationSpeech.GetValue()
+		userPreferences["Navigation"]["AutoZoomOut"] = self._checkBoxAutomaticZoom.GetValue()
+		userPreferences["Navigation"]["CopyAs"] = Navigation_CopyAs[self._choiceCopyAs.GetSelection()]
 
-		user_preferences["Braille"]["BrailleNavHighlight"] = Braille_BrailleNavHighlight[
+		userPreferences["Braille"]["BrailleNavHighlight"] = Braille_BrailleNavHighlight[
 			self._choiceBrailleHighlights.GetSelection()
 		]
-		user_preferences["Braille"]["BrailleCode"] = self._choiceBrailleMathCode.GetStringSelection()
-		if "NVDAAddOn" not in user_preferences:
-			user_preferences["NVDAAddOn"] = {"LastCategory": "0"}
-		user_preferences["NVDAAddOn"]["LastCategory"] = self._listBoxPreferencesTopic.GetSelection()
+		userPreferences["Braille"]["BrailleCode"] = self._choiceBrailleMathCode.GetStringSelection()
+		if "NVDAAddOn" not in userPreferences:
+			userPreferences["NVDAAddOn"] = {"LastCategory": "0"}
+		userPreferences["NVDAAddOn"]["LastCategory"] = self._listBoxPreferencesTopic.GetSelection()
 
 	@staticmethod
 	def pathToDefaultPreferences():
@@ -566,62 +566,62 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 
 	@staticmethod
 	def loadDefaultPreferences():
-		global user_preferences
+		global userPreferences
 		# load default preferences into the user preferences data structure (overwrites existing)
 		if os.path.exists(UserInterface.pathToDefaultPreferences()):
 			with open(
 				UserInterface.pathToDefaultPreferences(),
 				encoding="utf-8",
 			) as f:
-				user_preferences = yaml.load(f, Loader=yaml.FullLoader)
+				userPreferences = yaml.load(f, Loader=yaml.FullLoader)
 
 	@staticmethod
 	def loadUserPreferences():
-		global user_preferences
+		global userPreferences
 		# merge user file values into the user preferences data structure
 		if os.path.exists(UserInterface.pathToUserPreferences()):
 			with open(UserInterface.pathToUserPreferences(), encoding="utf-8") as f:
 				# merge with the default preferences, overwriting with the user's values
-				user_preferences.update(yaml.load(f, Loader=yaml.FullLoader))
+				userPreferences.update(yaml.load(f, Loader=yaml.FullLoader))
 
 	@staticmethod
 	def validate(key1: str, key2: str, validValues: List[Union[str, bool]], defaultValue: Union[str, bool]):
-		global user_preferences
+		global userPreferences
 		try:
 			if validValues == []:
 				# any value is valid
-				if user_preferences[key1][key2] != "":
+				if userPreferences[key1][key2] != "":
 					return
 
 			else:
 				# any value in the list is valid
-				if user_preferences[key1][key2] in validValues:
+				if userPreferences[key1][key2] in validValues:
 					return
 		except Exception as e:
 			log.exception(f"MathCAT: An exception occurred in validate: {e}")
 			# the preferences entry does not exist
-		if key1 not in user_preferences:
-			user_preferences[key1] = {key2: defaultValue}
+		if key1 not in userPreferences:
+			userPreferences[key1] = {key2: defaultValue}
 		else:
-			user_preferences[key1][key2] = defaultValue
+			userPreferences[key1][key2] = defaultValue
 
 	@staticmethod
 	def validateInt(key1: str, key2: str, validValues: List[int], defaultValue: int):
-		global user_preferences
+		global userPreferences
 		try:
 			# any value between lower and upper bounds is valid
 			if (
-				int(user_preferences[key1][key2]) >= validValues[0]
-				and int(user_preferences[key1][key2]) <= validValues[1]
+				int(userPreferences[key1][key2]) >= validValues[0]
+				and int(userPreferences[key1][key2]) <= validValues[1]
 			):
 				return
 		except Exception as e:
 			log.exception(f"MathCAT: An exception occurred in validateInt: {e}")
 			# the preferences entry does not exist
-		if key1 not in user_preferences:
-			user_preferences[key1] = {key2: defaultValue}
+		if key1 not in userPreferences:
+			userPreferences[key1] = {key2: defaultValue}
 		else:
-			user_preferences[key1][key2] = defaultValue
+			userPreferences[key1][key2] = defaultValue
 
 	@staticmethod
 	def validateUserPreferences():
@@ -683,17 +683,17 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		from . import libmathcat_py as libmathcat
 
 		try:
-			libmathcat.SetPreference("Language", user_preferences["Speech"]["Language"])
+			libmathcat.SetPreference("Language", userPreferences["Speech"]["Language"])
 		except Exception as e:
 			log.exception(
-				f'Error in trying to set MathCAT "Language" preference to "{user_preferences["Speech"]["Language"]}": {e}',
+				f'Error in trying to set MathCAT "Language" preference to "{userPreferences["Speech"]["Language"]}": {e}',
 			)
 		if not os.path.exists(UserInterface.pathToUserPreferencesFolder()):
 			# create a folder for the user preferences
 			os.mkdir(UserInterface.pathToUserPreferencesFolder())
 		with open(UserInterface.pathToUserPreferences(), "w", encoding="utf-8") as f:
 			# write values to the user preferences file, NOT the default
-			yaml.dump(user_preferences, stream=f, allow_unicode=True)
+			yaml.dump(userPreferences, stream=f, allow_unicode=True)
 
 	def OnRelativeSpeedChanged(self, event):
 		rate = self._sliderRelativeSpeed.GetValue()
@@ -707,9 +707,9 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 
 	def OnPauseFactorChanged(self, event):
 		rate = self._sliderRelativeSpeed.GetValue()
-		pf_slider = self._sliderPauseFactor.GetValue()
+		pfSlider = self._sliderPauseFactor.GetValue()
 		pauseFactor = (
-			0 if pf_slider == 0 else round(PAUSE_FACTOR_SCALE * math.pow(PAUSE_FACTOR_LOG_BASE, pf_slider))
+			0 if pfSlider == 0 else round(PAUSE_FACTOR_SCALE * math.pow(PAUSE_FACTOR_LOG_BASE, pfSlider))
 		)
 		text = _(
 			# Translators: this is a test string that is spoken. Only translate "the fraction with numerator"
