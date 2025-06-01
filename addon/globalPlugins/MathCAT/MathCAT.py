@@ -427,7 +427,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 		self,
 		text: str,
 		isMathML: bool,
-		notify: bool | None = False
+		notify: bool | None = False,
 	) -> bool:
 		"""Copies the given text to the windows clipboard.
 		@returns: True if it succeeds, False otherwise.
@@ -496,7 +496,7 @@ class MathCAT(mathPres.MathPresentationProvider):
 
 	def getSpeechForMathMl(
 		self,
-		mathml: str
+		mathml: str,
 	) -> list[str | SpeechCommand]:
 		global _synthesizerRate
 		synth: SynthDriver = getSynth()

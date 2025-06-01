@@ -271,7 +271,9 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		processSubDirs: Callable[[str, str], list[str]] | None,
 	) -> list[str]:
 		language: str = os.path.basename(pathToDir)
-		ruleFiles: list[str] = [os.path.basename(file) for file in glob.glob(os.path.join(pathToDir, "*_Rules.yaml"))]
+		ruleFiles: list[str] = [
+			os.path.basename(file) for file in glob.glob(os.path.join(pathToDir, "*_Rules.yaml"))
+		]
 		for dir in os.listdir(pathToDir):
 			if os.path.isdir(os.path.join(pathToDir, dir)):
 				if processSubDirs:
@@ -349,7 +351,9 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 			mainLang: str = lang.split("\\")[0]  # does the right thing even if there is no regional directory
 			allStyleFiles: list[str] = []
 			if lang.find("\\") >= 0:
-				allStyleFiles: list[str] = [os.path.basename(name) for name in glob.glob(dir + lang + "\\*_Rules.yaml")]
+				allStyleFiles: list[str] = [
+					os.path.basename(name) for name in glob.glob(dir + lang + "\\*_Rules.yaml")
+				]
 			allStyleFiles.extend(
 				[os.path.basename(name) for name in glob.glob(dir + mainLang + "\\*_Rules.yaml")],
 			)
@@ -615,7 +619,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		key1: str,
 		key2: str,
 		validValues: list[int],
-		defaultValue: int
+		defaultValue: int,
 	) -> None:
 		global userPreferences
 		try:
