@@ -353,7 +353,6 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 
 	_startsWithMath: re.Pattern = re.compile("\\s*?<math")
 
-
 	@script(
 		# Translators: Message to be announced during Keyboard Help
 		description=_("Copy navigation focus to clipboard"),
