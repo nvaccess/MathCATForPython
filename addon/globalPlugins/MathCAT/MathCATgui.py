@@ -297,7 +297,7 @@ class MathCATPreferencesDialog(wx.Dialog):
 
 		bSizerRelativeSpeed.Add(self._staticTextRelativeSpeed, 0, wx.ALL, 5)
 
-		self._sliderRelativeSpeed: Slider = wx.Slider(
+		self._sliderRelativeSpeed: wx.Slider = wx.Slider(
 			self._panelSpeech,
 			wx.ID_ANY,
 			100,

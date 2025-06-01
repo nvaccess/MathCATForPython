@@ -23,7 +23,8 @@ import winKernel
 import gui
 
 from . import libmathcat_py as libmathcat
-from typing import List, Dict
+from typing import Type
+from collections.abc import Generator, Callable
 from keyboardHandler import KeyboardInputGesture  # navigation key strokes
 from logHandler import log  # logging
 from os import path  # set rule dir path
@@ -33,7 +34,6 @@ from synthDriverHandler import (
 	SynthDriver,
 )
 from ctypes import windll  # register clipboard formats
-from typing import Optional
 from speech import getCurrentLanguage
 from speech.types import SpeechSequence
 
@@ -48,6 +48,9 @@ from speech.commands import (
 	CharacterModeCommand,
 	PhonemeCommand,
 	IndexCommand,
+	ProsodyCommand,
+	SpeechCommand,
+	SynthCommand,
 )
 
 from textUtils import WCHAR_ENCODING
@@ -268,7 +271,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	def getScript(
 		self,
 		gesture: KeyboardInputGesture,
-	) -> Callable[inputCore.inputGesture, None] | None:
+	) -> Callable[KeyboardInputGesture, None] | None:
 		# Pass most keys to MathCAT. Pretty ugly.
 		if (
 			isinstance(gesture, KeyboardInputGesture)
@@ -356,7 +359,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 		# Translators: Name of the section in "Input gestures" dialog.
 		category=_("Clipboard"),
 		gesture="kb:control+c",
-	)  # type: ignore
+	)
 	def script_rawdataToClip(self, gesture: KeyboardInputGesture) -> None:
 		try:
 			copyAs: str = "mathml"  # value used even if "CopyAs" pref is invalid
