@@ -212,3 +212,10 @@ Note: there is now an option to get Vietnam's braille standard as braille output
 * A preference setting to control the duration of pausing (works with changes to relative speech rate for math)
 * Support to recognize chemistry notation and speak it appropriately
 * Translations to Indonesian and Vietnamese
+
+## Development Environment
+We include here a few important notes for setting up a development environment for working on this project.
+* The configuration in `.vscode/settings.json` assumes that a virtual environment has been set up in a directory named `.venv`.
+This virtual environment should have `pyright` and `ruff` installed, and should use Python 3.11 (32-bit).
+* The relative path `../NVDA/source` is included in the pyright configuration in `pyproject.toml` to enable typechecking functions from the main NVDA repository.
+For this to function as expected, the main NVDA repository (https://github.com/nvaccess/nvda) should be cloned into the same directory as this repository.
