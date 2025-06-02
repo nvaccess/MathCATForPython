@@ -214,8 +214,18 @@ Note: there is now an option to get Vietnam's braille standard as braille output
 * Translations to Indonesian and Vietnamese
 
 ## Development Environment
-We include here a few important notes for setting up a development environment for working on this project.
-* The configuration in `.vscode/settings.json` assumes that a virtual environment has been set up in a directory named `.venv`.
-This virtual environment should have `pyright` and `ruff` installed, and should use Python 3.11 (32-bit).
-* The relative path `../NVDA/source` is included in the pyright configuration in `pyproject.toml` to enable typechecking functions from the main NVDA repository.
-For this to function as expected, the main NVDA repository (https://github.com/nvaccess/nvda) should be cloned into the same directory as this repository.
+How to set up your developer environment:
+1. Install Python 3.11 (32-bit).
+1. Set up your virtual environment.
+  * `python -m venv .venv`
+1. Install python dependencies to `.venv`.
+  * Activate the virtual environment
+    `.venv\\Scripts\\activate`
+  * Install lint dependencies
+    `pip install .`
+1. Import NVDA code.
+  * NVDA source code needs to be discoverable to get type hints, namespace resolution, code completion, and other IDE hints.
+  * The relative path `../nvda/source` is included in the pyright configuration in `pyproject.toml`.
+  * The [NVDA repository](https://github.com/nvaccess/nvda) should be cloned into the same parent directory.
+  i.e. as a sibling to this repository.
+  Alternatively, update `../nvda/source` in `pyproject.toml` to another location where the NVDA repository has been cloned.

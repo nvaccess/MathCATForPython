@@ -223,7 +223,11 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	# log.info("2**** MathCAT registering data formats:
 	#   CF_MathML %x, CF_MathML_Presentation %x" % (CF_MathML, CF_MathML_Presentation))
 
-	def __init__(self, provider=None, mathMl: str | None = None):
+	def __init__(
+		self,
+		provider: mathPres.MathPresentationProvider = None,
+		mathMl: str | None = None
+	):
 		super(MathCATInteraction, self).__init__(provider=provider, mathMl=mathMl)
 		if mathMl is None:
 			self.initMathML = "<math></math>"
