@@ -226,7 +226,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	def __init__(
 		self,
 		provider: mathPres.MathPresentationProvider = None,
-		mathMl: str | None = None
+		mathMl: str | None = None,
 	):
 		super(MathCATInteraction, self).__init__(provider=provider, mathMl=mathMl)
 		if mathMl is None:
