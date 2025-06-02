@@ -222,7 +222,7 @@ How to set up your developer environment:
   * Activate the virtual environment
     `.venv\\Scripts\\activate`
   * Install lint dependencies
-    `pip install .`
+    `pip install ruff==0.8.1 pre-commit==4.0.1 pyright==1.1.396`
 1. Import NVDA code.
   * NVDA source code needs to be discoverable to get type hints, namespace resolution, code completion, and other IDE hints.
   * The relative path `../nvda/source` is included in the pyright configuration in `pyproject.toml`.
