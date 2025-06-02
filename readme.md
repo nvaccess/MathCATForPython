@@ -220,7 +220,7 @@ How to set up your developer environment:
   * `python -m venv .venv`
 3. Install python dependencies to `.venv`.
   * Activate the virtual environment
-    `.venv\\Scripts\\activate`
+    `.venv\Scripts\activate`
   * Install lint dependencies
     `pip install ruff==0.8.1 pre-commit==4.0.1 pyright==1.1.396`
 4. Import NVDA code.
