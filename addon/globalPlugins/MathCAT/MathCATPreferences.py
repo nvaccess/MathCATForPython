@@ -47,10 +47,11 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 	Initializes and manages user preferences, including language, speech, braille,
 	and navigation settings. Extends MathCATgui.MathCATPreferencesDialog.
 	"""
+
 	def __init__(self, parent):
 		"""Initialize the preferences dialog.
 
-		Sets up the UI, loads preferences, applies defaults and saved settings, 
+		Sets up the UI, loads preferences, applies defaults and saved settings,
 		and restores the previous UI state.
 
 		:param parent: The parent window for the dialog.
@@ -344,7 +345,8 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		regional dialects. Language folders use ISO 639-1 codes and regional variants use ISO 3166-1 alpha-2 codes.
 
 		It also adds a special "Use Voice's Language (Auto)" option at the top.
-    	"""
+		"""
+
 		def addRegionalLanguages(subDir: str, language: str) -> list[str]:
 			# the language variants are in folders named using ISO 3166-1 alpha-2
 			# codes https://en.wikipedia.org/wiki/ISO_3166-2
@@ -943,16 +945,16 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 	def mathCATPreferencesDialogOnCharHook(self, event: wx.KeyEvent) -> None:
 		"""Handles character key events within the MathCAT Preferences dialog.
 
-		This method interprets specific key presses to mimic button clicks or 
+		This method interprets specific key presses to mimic button clicks or
 		navigate within the preferences dialog:
 
 		- Escape: Triggers the Cancel button functionality.
 		- Enter: Triggers the OK button functionality.
 		- Ctrl+Tab: Cycles forward through the preference categories.
 		- Ctrl+Shift+Tab: Cycles backward through the preference categories.
-		- Tab: Moves focus to the first control in the currently selected category, 
+		- Tab: Moves focus to the first control in the currently selected category,
 			if the category list has focus.
-		- Shift+Tab: Moves focus to the second row of controls, 
+		- Shift+Tab: Moves focus to the second row of controls,
 			if the OK button has focus.
 
 		If none of these keys are matched, the event is skipped to allow default processing.

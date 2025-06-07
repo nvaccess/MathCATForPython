@@ -11,7 +11,6 @@ Copyright: this file is copyright GPL2
   python3.dll has "Copyright © 2001-2022 Python Software Foundation; All Rights Reserved
 """
 
-
 import globalPluginHandler  # we are a global plugin
 import globalVars
 import mathPres  # math plugin stuff
@@ -31,13 +30,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	"""
 	Global plugin for the MathCAT add-on.
 	"""
+
 	def __init__(self, *args, **kwargs):
 		"""
-        Initialize the Global Plugin and add the MathCAT menu.
+		Initialize the Global Plugin and add the MathCAT menu.
 
-        :param args: Additional positional arguments.
-        :param kwargs: Additional keyword arguments.
-        """
+		:param args: Additional positional arguments.
+		:param kwargs: Additional keyword arguments.
+		"""
 		super().__init__(*args, **kwargs)
 		# MathCAT.__init__(self)
 		self.addMathCATMenu()
@@ -54,10 +54,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def onSettings(self, evt: wx.CommandEvent) -> None:
 		"""
-        Opens the MathCAT preferences dialog.
+		Opens the MathCAT preferences dialog.
 
-        :param evt: The event that triggered this action.
-        """
+		:param evt: The event that triggered this action.
+		"""
 		mainFrame.popupSettingsDialog(UserInterface)
 
 	def terminate(self) -> None:

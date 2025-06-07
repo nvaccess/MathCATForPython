@@ -94,9 +94,9 @@ _synthesizerRate: int | None = None
 def getLanguageToUse(mathMl: str = "") -> str:
 	"""Get the language specified in a math tag if the language pref is Auto, else the language preference.
 
-    :param mathMl: The MathML string to examine for language. Defaults to an empty string.
-    :returns: The language string to use.
-    """
+	:param mathMl: The MathML string to examine for language. Defaults to an empty string.
+	:returns: The language string to use.
+	"""
 	mathCATLanguageSetting: str = "Auto"
 	try:
 		# ignore regional differences if the MathCAT language setting doesn't have it.
@@ -222,6 +222,7 @@ def convertSSMLTextForNVDA(text: str) -> list[str | SpeechCommand]:
 
 class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	"""An NVDA object used to interact with MathML."""
+
 	# Put MathML or other formats on the clipboard.
 	# MathML is put on the clipboard using the two formats below (defined by MathML spec)
 	# We use both formats because some apps may only use one or the other
@@ -240,9 +241,9 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	):
 		"""Initialize the MathCATInteraction object.
 
-        :param provider: Optional presentation provider.
-        :param mathMl: Optional initial MathML string.
-        """
+		:param provider: Optional presentation provider.
+		:param mathMl: Optional initial MathML string.
+		"""
 		super(MathCATInteraction, self).__init__(provider=provider, mathMl=mathMl)
 		if mathMl is None:
 			self.initMathML = "<math></math>"
@@ -464,7 +465,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 		notify: bool | None = False,
 	) -> bool:
 		"""Copies the given text to the windows clipboard.
-		
+
 		:param text: the text which will be copied to the clipboard.
 		:param notify: whether to emit a confirmation message.
 		:returns: True if it succeeds, False otherwise.
@@ -495,7 +496,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 
 	def _setClipboardData(self, format: int, data: str) -> None:
 		"""Sets the clipboard data to the given data with the specified format.
-		
+
 		:param format: The format for the clipboard data. This is an integer format code returned by windll.user32.RegisterClipboardFormatW.
 		:param data: The data to set on the clipboard.
 		"""
