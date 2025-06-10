@@ -95,7 +95,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		r"""Returns the full path to the Languages rules folder.
 
 		The language rules are stored in:
-		MathCAT\Rules\Languages, relative to the location of this script.
+		MathCAT\Rules\Languages, relative to the location of this file.
 
 		:return: Absolute path to the Languages folder as a string.
 		"""
@@ -106,7 +106,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		r"""Returns the full path to the Braille rules folder.
 
 		The Braille rules are stored in:
-			`MathCAT\Rules\Braille`.
+		MathCAT\Rules\Braille, relative to the location of this file.
 
 		:return: Absolute path to the Braille folder as a string.
 		"""
