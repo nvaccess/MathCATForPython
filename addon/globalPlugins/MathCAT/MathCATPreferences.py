@@ -946,13 +946,13 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		This method interprets specific key presses to mimic button clicks or
 		navigate within the preferences dialog:
 
-		- Escape: Triggers the Cancel button functionality.
-		- Enter: Triggers the OK button functionality.
-		- Ctrl+Tab: Cycles forward through the preference categories.
-		- Ctrl+Shift+Tab: Cycles backward through the preference categories.
-		- Tab: Moves focus to the first control in the currently selected category,
+		- escape: Triggers the Cancel button functionality.
+		- enter: Triggers the OK button functionality.
+		- ctrl+tab: Cycles forward through the preference categories.
+		- ctrl+shift+tab: Cycles backward through the preference categories.
+		- tab: Moves focus to the first control in the currently selected category,
 			if the category list has focus.
-		- Shift+Tab: Moves focus to the second row of controls,
+		- shift+tab: Moves focus to the second row of controls,
 			if the OK button has focus.
 
 		If none of these keys are matched, the event is skipped to allow default processing.

@@ -18,7 +18,7 @@ class MathCATPreferencesDialog(wx.Dialog):
 	This base class sets up the layout and controls.
 	"""
 
-	def __init__(self, parent):
+	def __init__(self, parent: wx.Window | None):
 		"""Initialize the preferences dialog.
 
 		:param parent: The parent window for this dialog.
