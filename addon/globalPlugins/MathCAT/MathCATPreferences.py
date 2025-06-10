@@ -48,7 +48,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 	and navigation settings. Extends MathCATgui.MathCATPreferencesDialog.
 	"""
 
-	def __init__(self, parent):
+	def __init__(self, parent: wx.Window | None):
 		"""Initialize the preferences dialog.
 
 		Sets up the UI, loads preferences, applies defaults and saved settings,
@@ -120,7 +120,7 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		'en-GB', 'zh-HANT', and others.
 
 		:return: A dictionary where the key is the language code (e.g., 'en', 'fr', 'zh-HANS')
-			and the value is the language name (e.g., 'English', 'Français', 'Chinese, Simplified').
+			and the value is the language name (e.g. 'English', 'Français', 'Chinese, Simplified').
 		"""
 		languages = {
 			"aa": "Afar",
@@ -393,18 +393,16 @@ class UserInterface(MathCATgui.MathCATPreferencesDialog):
 		for example: "English (en)".
 
 		:return: The language code extracted from the selection.
-		:rtype: str
 		"""
 		langSelection: str = self._choiceLanguage.GetStringSelection()
 		langCode: str = langSelection[langSelection.find("(") + 1 : langSelection.find(")")]
 		return langCode
 
-	def getSpeechStyles(self, thisSpeechStyle: str):
+	def getSpeechStyles(self, thisSpeechStyle: str) -> None:
 		"""Get all the speech styles for the current language.
 		This sets the SpeechStyles dialog entry.
 
 		:param thisSpeechStyle: The speech style to set or highlight in the dialog.
-		:return: None
 		"""
 		from speech import getCurrentLanguage
 

@@ -497,7 +497,8 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	def _setClipboardData(self, format: int, data: str) -> None:
 		"""Sets the clipboard data to the given data with the specified format.
 
-		:param format: The format for the clipboard data. This is an integer format code returned by windll.user32.RegisterClipboardFormatW.
+		:param format: The format for the clipboard data.
+			This is an integer format code returned by windll.user32.RegisterClipboardFormatW.
 		:param data: The data to set on the clipboard.
 		"""
 		# Need to support MathML Presentation, so this copied from winUser.py and the first two lines are commented out
