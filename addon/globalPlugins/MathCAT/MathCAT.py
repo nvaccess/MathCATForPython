@@ -293,7 +293,7 @@ class MathCATInteraction(mathPres.MathInteractionNVDAObject):
 	def getScript(
 		self,
 		gesture: KeyboardInputGesture,
-	) -> Callable[KeyboardInputGesture, None] | None:
+	) -> Callable[[KeyboardInputGesture], None] | None:
 		"""
 		Returns the script function bound to the given gesture.
 
